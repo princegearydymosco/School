@@ -1,27 +1,28 @@
 ﻿@model SchoolManagementSystem.Models.Student
 
 <h2>Create</h2>
+
 <form id="newForm" action="/Student/Add" method="post" novalidate>
     <!-- Ensure the anti-forgery token is included in the form -->
     @Html.AntiForgeryToken()
     <div class="form-group">
         <label asp-for="StudentFName" class="control-label">First Name</label>
-        <input asp-for="StudentFName" class="form-control" required />
+        <input asp-for="StudentFName" class="form-control" name="StudentFName" />
         <span asp-validation-for="StudentFName" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="StudentLName" class="control-label">Last Name</label>
-        <input asp-for="StudentLName" class="form-control" required />
+        <input asp-for="StudentLName" class="form-control" name="StudentLName" />
         <span asp-validation-for="StudentLName" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="StudentNumber" class="control-label">Student Number</label>
-        <input asp-for="StudentNumber" class="form-control" required />
+        <input asp-for="StudentNumber" class="form-control" name="StudentNumber" />
         <span asp-validation-for="StudentNumber" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="EnrolDate" class="control-label">Enrol Date</label>
-        <input asp-for="EnrolDate" type="date" class="form-control" required />
+        <input asp-for="EnrolDate" type="date" class="form-control" name="EnrolDate" />
         <span asp-validation-for="EnrolDate" class="text-danger"></span>
     </div>
     <div class="form-group mt-2">
@@ -36,7 +37,26 @@
         var token = $('input[name="__RequestVerificationToken"]').val();
 
         $("#newForm").validate({
-            // Define any additional validation rules or messages here
+            rules: {
+                StudentFName: "required",
+                StudentLName: "required",
+                StudentNumber: "required",
+                EnrolDate: "required"
+            },
+            messages: {
+                StudentFName: "Please enter the student's first name",
+                StudentLName: "Please enter the student's last name",
+                StudentNumber: "Please enter the student number",
+                EnrolDate: "Please select the enrol date"
+            },
+            errorElement: "span",
+            errorClass: "text-danger",
+            highlight: function (element) {
+                $(element).addClass("is-invalid");
+            },
+            unhighlight: function (element) {
+                $(element).removeClass("is-invalid");
+            }
         });
 
         $("#newForm").on("submit", function (e) {

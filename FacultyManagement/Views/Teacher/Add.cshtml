@@ -7,27 +7,27 @@
     @Html.AntiForgeryToken()
     <div class="form-group">
         <label asp-for="TeacherFName" class="control-label">First Name</label>
-        <input asp-for="TeacherFName" class="form-control" required />
+        <input asp-for="TeacherFName" class="form-control" name="TeacherFName" />
         <span asp-validation-for="TeacherFName" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="TeacherLName" class="control-label">Last Name</label>
-        <input asp-for="TeacherLName" class="form-control" required />
+        <input asp-for="TeacherLName" class="form-control" name="TeacherLName" />
         <span asp-validation-for="TeacherLName" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="EmployeeNumber" class="control-label">Employee Number</label>
-        <input asp-for="EmployeeNumber" class="form-control" required />
+        <input asp-for="EmployeeNumber" class="form-control" name="EmployeeNumber" />
         <span asp-validation-for="EmployeeNumber" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="HireDate" class="control-label">Hire Date</label>
-        <input asp-for="HireDate" type="date" class="form-control" required />
+        <input asp-for="HireDate" type="date" class="form-control" name="HireDate" />
         <span asp-validation-for="HireDate" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="Salary" class="control-label">Salary</label>
-        <input asp-for="Salary" type="number" step="0.01" class="form-control" required />
+        <input asp-for="Salary" type="number" step="0.01" class="form-control" name="Salary" />
         <span asp-validation-for="Salary" class="text-danger"></span>
     </div>
     <div class="form-group mt-2">
@@ -42,7 +42,34 @@
         var token = $('input[name="__RequestVerificationToken"]').val();
 
         $("#newForm").validate({
-            // Define any additional validation rules or messages here
+            rules: {
+                TeacherFName: "required",
+                TeacherLName: "required",
+                EmployeeNumber: "required",
+                HireDate: "required",
+                Salary: {
+                    required: true,
+                    number: true
+                }
+            },
+            messages: {
+                TeacherFName: "Please enter the teacher's first name",
+                TeacherLName: "Please enter the teacher's last name",
+                EmployeeNumber: "Please enter the employee number",
+                HireDate: "Please select a hire date",
+                Salary: {
+                    required: "Please enter the salary",
+                    number: "Please enter a valid number"
+                }
+            },
+            errorElement: "span",
+            errorClass: "text-danger",
+            highlight: function (element) {
+                $(element).addClass("is-invalid");
+            },
+            unhighlight: function (element) {
+                $(element).removeClass("is-invalid");
+            }
         });
 
         $("#newForm").on("submit", function (e) {

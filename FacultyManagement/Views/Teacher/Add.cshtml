@@ -38,6 +38,11 @@
 
 <script>
     $(document).ready(function () {
+        // Define a custom validation method for positive numbers
+        $.validator.addMethod("positiveNumber", function (value, element) {
+            return this.optional(element) || parseFloat(value) > 0;
+        }, "Please enter a positive number");
+
         // Get the anti-forgery token from the form
         var token = $('input[name="__RequestVerificationToken"]').val();
 
@@ -49,7 +54,8 @@
                 HireDate: "required",
                 Salary: {
                     required: true,
-                    number: true
+                    number: true,
+                    positiveNumber: true
                 }
             },
             messages: {
@@ -59,7 +65,8 @@
                 HireDate: "Please select a hire date",
                 Salary: {
                     required: "Please enter the salary",
-                    number: "Please enter a valid number"
+                    number: "Please enter a valid number",
+                    positiveNumber: "Salary must be a positive number"
                 }
             },
             errorElement: "span",

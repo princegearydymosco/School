@@ -1,28 +1,34 @@
-﻿@model SchoolManagementSystem.Models.Student
+﻿@model SchoolManagementSystem.Models.Teacher
 
 <h2>Create</h2>
-<form id="newForm" action="/Student/New" method="post" novalidate>
+
+<form id="newForm" action="/Teacher/Add" method="post" novalidate>
     <!-- Ensure the anti-forgery token is included in the form -->
     @Html.AntiForgeryToken()
     <div class="form-group">
-        <label asp-for="StudentFName" class="control-label">First Name</label>
-        <input asp-for="StudentFName" class="form-control" required />
-        <span asp-validation-for="StudentFName" class="text-danger"></span>
+        <label asp-for="TeacherFName" class="control-label">First Name</label>
+        <input asp-for="TeacherFName" class="form-control" required />
+        <span asp-validation-for="TeacherFName" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="StudentLName" class="control-label">Last Name</label>
-        <input asp-for="StudentLName" class="form-control" required />
-        <span asp-validation-for="StudentLName" class="text-danger"></span>
+        <label asp-for="TeacherLName" class="control-label">Last Name</label>
+        <input asp-for="TeacherLName" class="form-control" required />
+        <span asp-validation-for="TeacherLName" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="StudentNumber" class="control-label">Student Number</label>
-        <input asp-for="StudentNumber" class="form-control" required />
-        <span asp-validation-for="StudentNumber" class="text-danger"></span>
+        <label asp-for="EmployeeNumber" class="control-label">Employee Number</label>
+        <input asp-for="EmployeeNumber" class="form-control" required />
+        <span asp-validation-for="EmployeeNumber" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="EnrolDate" class="control-label">Enrol Date</label>
-        <input asp-for="EnrolDate" type="date" class="form-control" required />
-        <span asp-validation-for="EnrolDate" class="text-danger"></span>
+        <label asp-for="HireDate" class="control-label">Hire Date</label>
+        <input asp-for="HireDate" type="date" class="form-control" required />
+        <span asp-validation-for="HireDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Salary" class="control-label">Salary</label>
+        <input asp-for="Salary" type="number" step="0.01" class="form-control" required />
+        <span asp-validation-for="Salary" class="text-danger"></span>
     </div>
     <div class="form-group mt-2">
         <a asp-action="Index" class="btn btn-secondary">Back</a>
@@ -53,7 +59,7 @@
                     success: function (response) {
                         if (response.success) {
                             alert(response.message);
-                            window.location.href = '/Student/Index';
+                            window.location.href = '/Teacher/Index';
                         } else {
                             alert(response.message);
                         }

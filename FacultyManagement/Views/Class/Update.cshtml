@@ -52,7 +52,12 @@
                             alert(response.message);
                             window.location.href = '/Class/Index';
                         } else {
-                            alert(response.message);
+                            if (response.errors) {
+                                $('.text-danger').text('');
+                                $.each(response.errors, function (fieldName, error) {
+                                    $('span[data-valmsg-for="' + fieldName + '"]').text(error);
+                                });
+                            }
                         }
                     },
                     error: function () {

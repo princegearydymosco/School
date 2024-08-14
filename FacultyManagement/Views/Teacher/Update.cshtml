@@ -52,13 +52,10 @@
                             alert(response.message);
                             window.location.href = '/Teacher/Index';
                         } else {
-                            alert('Error updating teacher');
                             if (response.errors) {
-                                // Clear previous errors
                                 $('.text-danger').text('');
-                                // Display validation errors
-                                $.each(response.errors, function (index, error) {
-                                    $('span[data-valmsg-for="' + index + '"]').text(error);
+                                $.each(response.errors, function (fieldName, error) {
+                                    $('span[data-valmsg-for="' + fieldName + '"]').text(error);
                                 });
                             }
                         }

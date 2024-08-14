@@ -28,14 +28,14 @@ namespace SchoolManagementSystem.Controllers
             return View(teacher);
         }
 
-        public IActionResult New()
+        public IActionResult Add()
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult New(Teacher teacher)
+        public IActionResult Add(Teacher teacher)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +79,15 @@ namespace SchoolManagementSystem.Controllers
                 return Json(new { success = true, message = "Teacher updated successfully" });
             }
 
-            var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
+            var errors = ModelState
+                .Where(ms => ms.Value != null && ms.Value.Errors.Any(e => !string.IsNullOrEmpty(e.ErrorMessage)))
+                .ToDictionary(
+                    ms => ms.Key,
+                    ms => ms.Value != null && ms.Value.Errors.Any(e => !string.IsNullOrEmpty(e.ErrorMessage)) 
+                        ? string.Join(" ", ms.Value.Errors.Where(e => !string.IsNullOrEmpty(e.ErrorMessage)).Select(e => e.ErrorMessage))
+                        : string.Empty
+                );
+
             return Json(new { success = false, errors = errors });
         }
 

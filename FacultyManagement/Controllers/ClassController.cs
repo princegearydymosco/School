@@ -54,7 +54,7 @@ namespace SchoolManagementSystem.Controllers
             return Json(new { success = false, errors = errors });
         }
 
-        public IActionResult Edit(int id)
+        public IActionResult Update(int id)
         {
             var classData = _context.GetClassById(id);
             if (classData == null)
@@ -66,7 +66,7 @@ namespace SchoolManagementSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Class classData)
+        public IActionResult Update(int id, Class classData)
         {
             if (id != classData.ClassId)
             {

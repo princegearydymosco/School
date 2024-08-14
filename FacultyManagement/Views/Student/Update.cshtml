@@ -1,7 +1,7 @@
 ﻿@model SchoolManagementSystem.Models.Student
 
 <h2>Edit</h2>
-<form id="editForm" method="post" asp-action="Edit">
+<form id="editForm" method="post" asp-action="Update">
     @Html.AntiForgeryToken()
     <input type="hidden" asp-for="StudentId" />
     <div class="form-group">
